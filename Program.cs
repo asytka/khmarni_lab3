@@ -64,14 +64,26 @@ namespace khmarni_lab3
         }
         public async Task<Stream> DownloadBlobAsync(string blobUrl)
         {
-            string sasToken = "sp=r&st=2024-11-17T14:49:52Z&se=2024-11-17T22:49:52Z&spr=https&sv=2022-11-02&sr=c&sig=ghtgCOhf2%2F2MuEIevnarJnPmqcJ4hgFxfj3bhbBWSMw%3D";
-            BlobClient blobClient = new BlobClient(new Uri($"{blobUrl}?{sasToken}"));
+            string sasToken = "sp=r&st=2024-11-18T13:38:19Z&se=2024-11-18T21:38:19Z&spr=https&sv=2022-11-02&sr=c&sig=Wft8VKvDltCbNK71XvUf0N25ZoxbotGv1V63XUM3OsY%3D";
+            Uri blobUriWithSas = new Uri($"{blobUrl}?{sasToken}");
+            BlobClient blobClient = new BlobClient(blobUriWithSas);
+
             var memoryStream = new MemoryStream();
-            await blobClient.DownloadToAsync(memoryStream);
-            memoryStream.Position = 0; // Reset the stream position to the beginning
+
+            try
+            {
+                await blobClient.DownloadToAsync(memoryStream);
+
+                memoryStream.Position = 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error downloading blob: {ex.Message}");
+                throw;
+            }
+
             return memoryStream;
         }
-        // Uploads a file and returns the blob URL
         public async Task<string> UploadFileAsync(string filePath, string blobName)
         {
             var blobClient = _blobContainerClient.GetBlobClient(blobName);

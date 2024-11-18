@@ -19,7 +19,7 @@ namespace khmarni_lab3
             _storageService = new AzureTableStorageService(tableStorageConnectionString, tableName);
 
             // Blob Storage initialization
-            string blobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=lab3bohush;AccountKey=nrDw0Nqi17udXisxxqE81l0+cXWfy3ZU3xneOxNC76fp13wLur1wCJBca1HOerN0NjlkidQGmolp+AStAycSWA==;EndpointSuffix=core.windows.net";
+                    string blobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=lab3bohush;AccountKey=nrDw0Nqi17udXisxxqE81l0+cXWfy3ZU3xneOxNC76fp13wLur1wCJBca1HOerN0NjlkidQGmolp+AStAycSWA==;EndpointSuffix=core.windows.net";
             string blobContainerName = "contactphotos";
             _blobStorageService = new AzureBlobStorageService(blobStorageConnectionString, blobContainerName);
 
